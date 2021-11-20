@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -45,7 +44,7 @@ public class testHash {
     // Function that reads a whole text file and returns a String
     private static String readFileAsString(String fileName) throws IOException
     {
-        String data = "";
+        String data;
         data = new String(Files.readAllBytes(Paths.get(fileName)));
         return data;
     }
