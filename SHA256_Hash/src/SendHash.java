@@ -8,35 +8,33 @@ import java.net.Socket;
 public class SendHash implements Runnable {
     private Socket s;
     private DataOutputStream dout;
-    private VerifyHash verifier;
-    private Reader reader;
 
 
     /* constructor */
-    public SendHash(Socket s, VerifyHash verifier) throws Exception{
+    public SendHash(Socket s) {
         this.s = s;
-        this.verifier = verifier;
-        this.reader = new Reader();
-        this.dout = new DataOutputStream(s.getOutputStream());
+        try {
+            this.dout = new DataOutputStream(s.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void run() {
-        byte[] hash;
-        do {
-            hash = reader.getNextBytes();
 
-            try {
-                dout.write(hash);
-                dout.flush();
+        String hash = getNextHash();
 
-                /* when sending a generated hash, give it to the verify class so it can compare to received hashes */
-                verifier.addHash(hash);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } while (hash != null);
+        try {
+            dout.writeUTF(hash);
+            dout.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    // TODO
+    public synchronized String getNextHash() {
+        return "test";
+    }
 }
