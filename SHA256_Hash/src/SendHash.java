@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Repeatedly sends hashes
@@ -24,6 +25,8 @@ public class SendHash implements Runnable {
     public void run() {
 
         String hash = getNextHash();
+
+//        String hash = HashGen.generateHashOfFolder();
 
         try {
             dout.writeUTF(hash);

@@ -7,15 +7,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-public class testHash {
-    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
-        String aliceFolderHash = generateHashOfFolder("./Alice");
-        String bobFolderHash = generateHashOfFolder("./Bob");
-        System.out.println(aliceFolderHash);
-        System.out.println(bobFolderHash);
-    }
+public class HashGen {
 
-    private static String generateHashOfFolder(String folderName) throws NoSuchAlgorithmException, IOException {
+    public static String generateHashOfFolder(String folderName) {
         // Define folder name containing the passwords and store them into an array
         File folder = new File(folderName);
         File[] listOfFiles = folder.listFiles();
@@ -23,7 +17,7 @@ public class testHash {
         Arrays.sort(listOfFiles);
 
         // Define variables to store digest, password text, and result from SHA-256 hash
-        MessageDigest digest;
+        MessageDigest digest = null;
         String originalString;
         byte[] encodedHash = {};
 
@@ -31,7 +25,11 @@ public class testHash {
         for (File file : listOfFiles) {
             // Only read files ending with ".txt"
             if (file.isFile() && file.getName().endsWith(".txt")) {
-                digest = MessageDigest.getInstance("SHA-256");
+                try {
+                    digest = MessageDigest.getInstance("SHA-256");
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
                 originalString = readFileAsString(file.toString()) + bytesToHex(encodedHash);
                 encodedHash = digest.digest(
                         originalString.getBytes(StandardCharsets.UTF_8));
@@ -41,12 +39,13 @@ public class testHash {
         return bytesToHex(encodedHash);
     }
 
-    // Function that reads a whole text file and returns a String
-    private static String readFileAsString(String fileName) throws IOException
-    {
-        String data;
-        data = new String(Files.readAllBytes(Paths.get(fileName)));
-        return data;
+    // Function that reads a whole text file and returns a String or null if cannot be read
+    private static String readFileAsString(String fileName) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(fileName)));
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     // Converts the hashed result from byte to hex
@@ -62,4 +61,3 @@ public class testHash {
         return hexString.toString();
     }
 }
-
