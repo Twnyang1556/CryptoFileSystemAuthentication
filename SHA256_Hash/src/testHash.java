@@ -9,13 +9,13 @@ import java.util.Arrays;
 
 public class testHash {
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
-        String aliceFolderHash = generateHashOfFolder("./Alice");
-        String bobFolderHash = generateHashOfFolder("./Bob");
-        System.out.println(aliceFolderHash);
-        System.out.println(bobFolderHash);
+//        String aliceFolderHash = generateHashOfFolder("./Alice");
+//        String bobFolderHash = generateHashOfFolder("./Bob");
+//        System.out.println(aliceFolderHash);
+//        System.out.println(bobFolderHash);
     }
 
-    private static String generateHashOfFolder(String folderName) throws NoSuchAlgorithmException, IOException {
+    public static String generateHashOfFolder(String folderName) throws NoSuchAlgorithmException, IOException {
         // Define folder name containing the passwords and store them into an array
         File folder = new File(folderName);
         File[] listOfFiles = folder.listFiles();
@@ -50,7 +50,7 @@ public class testHash {
     }
 
     // Converts the hashed result from byte to hex
-    private static String bytesToHex(byte[] hash) {
+    public static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
         for (byte b : hash) {
             String hex = Integer.toHexString(0xff & b);
