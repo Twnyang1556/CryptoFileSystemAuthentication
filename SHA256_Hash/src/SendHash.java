@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.Socket;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Repeatedly sends hashes
