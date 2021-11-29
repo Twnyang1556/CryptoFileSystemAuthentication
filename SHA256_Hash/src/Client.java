@@ -3,23 +3,28 @@ import java.net.Socket;
 class Client {
     public static void main(String args[]) throws Exception {
         Socket s = new Socket("localhost", 3915);
+        String folderName = "./Alice";
+        IO io = new IO(s);
 
-        /* start sending hashes */
-        SendHash sendHash = new SendHash(s);
-        Thread sender = new Thread(sendHash);
-        sender.start();
+        /* encrypt client folder */
+        String myHash = HashGen.generateHashOfFolder(folderName);
 
-        /* start receiving and validating hashes */
-        VerifyHash verifyHash = new VerifyHash(s);
-        Thread receiver = new Thread(verifyHash);
-        receiver.start();
+        /* send hash */
+        io.write(myHash);
 
-        /* wait for threads to finish */
-        sender.join();
-        receiver.join();
+        /* receive hash */
+        String readHash = io.read();
+
+        /* compare */
+        if (myHash.equals(readHash)) {
+            System.out.println("File Systems are equal!");
+        } else {
+            System.out.println("File Systems are not equal!");
+        }
 
         /* close socket */
         s.close();
 
     }
+
 }
