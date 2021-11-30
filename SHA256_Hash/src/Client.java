@@ -3,21 +3,26 @@ import java.io.*;
 
 class Client {
     public static void main(String args[]) throws Exception {
+        long startTime = System.currentTimeMillis();
+
         Socket s = new Socket("localhost", 3915);
-        String folderName = "./Alice";
+        String folderName = "./Bob";
         IO io = new IO(s);
 
         /* encrypt client folder */
-        String myHash = HashGen.generateHashOfFolder(folderName);
+        String sha256Hash = HashGen.generateHashOfFolder(folderName, "SHA-256");
 
         /* send hash */
-        io.write(myHash);
+        io.write(sha256Hash);
 
         /* receive hash */
         String readHash = io.read();
 
+        /* calculate sha1 to compare */
+        String sha1Hash = HashGen.generateHashOfFolder(folderName, "SHA-1");
+
         /* compare */
-        if (myHash.equals(readHash)) {
+        if (sha1Hash.equals(readHash)) {
             System.out.println("File Systems are equal!");
         } else {
             System.out.println("File Systems are not equal!");
@@ -25,6 +30,8 @@ class Client {
 
         /* close socket */
         s.close();
+
+        System.out.println("Runtime in ms: " + (System.currentTimeMillis() - startTime));
 
     }
 

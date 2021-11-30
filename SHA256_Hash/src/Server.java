@@ -14,16 +14,19 @@ class Server {
         IO io = new IO(s);
 
         /* encrypt client folder */
-        String myHash = HashGen.generateHashOfFolder(folderName);
+        String sha1Hash = HashGen.generateHashOfFolder(folderName, "SHA-1");
 
         /* send hash */
-        io.write(myHash);
+        io.write(sha1Hash);
 
         /* receive hash */
         String readHash = io.read();
 
+        /* calculate SHA-256 */
+        String sha256Hash = HashGen.generateHashOfFolder(folderName, "SHA-256");
+
         /* compare */
-        if (myHash.equals(readHash)) {
+        if (sha256Hash.equals(readHash)) {
             System.out.println("File Systems are equal!");
         } else {
             System.out.println("File Systems are not equal!");

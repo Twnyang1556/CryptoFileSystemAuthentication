@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class HashGen {
 
-    public static String generateHashOfFolder(String folderName) {
+    public static String generateHashOfFolder(String folderName, String enc) {
         // Define folder name containing the passwords and store them into an array
         File folder = new File(folderName);
         File[] listOfFiles = folder.listFiles();
@@ -26,14 +26,13 @@ public class HashGen {
             // Only read files ending with ".txt"
             if (file.isFile() && file.getName().endsWith(".txt")) {
                 try {
-                    digest = MessageDigest.getInstance("SHA-256");
+                    digest = MessageDigest.getInstance(enc); // SHA-256
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
                 originalString = readFileAsString(file.toString()) + bytesToHex(encodedHash);
                 encodedHash = digest.digest(
                         originalString.getBytes(StandardCharsets.UTF_8));
-//                System.out.println(file.toString() + ": " + bytesToHex(encodedHash));
             }
         }
         return bytesToHex(encodedHash);
