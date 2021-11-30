@@ -26,17 +26,14 @@ public class HashGen {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        try (FileReader reader = new FileReader(fileName);
-             BufferedReader bufferedReader = new BufferedReader((reader))) {
-            while ((originalString = bufferedReader.readLine()) != null) {
-                originalString += encodedHash;
-                assert digest != null;
-                encodedHash = digest.digest(
-                        originalString.getBytes(StandardCharsets.UTF_8));
-            }
-        } catch (IOException e) {
+        try {
+            digest = MessageDigest.getInstance(hashFunction);
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        originalString = readFileAsString(fileName) + bytesToHex(encodedHash);
+        encodedHash = digest.digest(
+                originalString.getBytes(StandardCharsets.UTF_8));
 
         return bytesToHex(encodedHash);
     }
