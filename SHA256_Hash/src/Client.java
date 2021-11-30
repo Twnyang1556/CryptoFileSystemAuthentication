@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 class Client {
     public static void main(String[] args) throws Exception {
@@ -9,15 +10,19 @@ class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String fileName = "./E_coli.txt";
+        Scanner myobj = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Enter file name: ");
+
+        String fileName = myobj.nextLine();  // Read user input
+
         assert s != null;
         IO io = new IO(s);
 
         /* encrypt client folder */
         String hashSHA256 = HashGen.generateHashOfFile(fileName, "SHA-256");
         String hashSHA1 = HashGen.generateHashOfFile(fileName, "SHA-1");
-        System.out.println(hashSHA1);
-        System.out.println(hashSHA256);
+//        System.out.println(hashSHA1);
+//        System.out.println(hashSHA256);
         /* send hash */
         io.write(hashSHA256);
 
