@@ -41,6 +41,15 @@ public class HashGen {
         return bytesToHex(encodedHash);
     }
 
+    // Function that reads a whole text file and returns a String or null if cannot be read
+    private static String readFileAsString(String fileName) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(fileName)));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
     // Converts the hashed result from byte to hex
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
