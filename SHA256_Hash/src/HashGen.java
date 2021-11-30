@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -8,34 +10,31 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class HashGen {
-
-    public static String generateHashOfFolder(String folderName) {
-        // Define folder name containing the passwords and store them into an array
-        File folder = new File(folderName);
-        File[] listOfFiles = folder.listFiles();
-        assert(listOfFiles != null);
-        Arrays.sort(listOfFiles);
+    public static void main(String[] args) {
+        System.out.println(generateHashOfFile("../untitled/E_coli.txt", "SHA-1"));
+    }
+    public static String generateHashOfFile(String fileName, String hashFunction) {
 
         // Define variables to store digest, password text, and result from SHA-256 hash
         MessageDigest digest = null;
         String originalString;
         byte[] encodedHash = {};
 
-        // Hash each text file containing passwords
-        for (File file : listOfFiles) {
-            // Only read files ending with ".txt"
-            if (file.isFile() && file.getName().endsWith(".txt")) {
-                try {
-                    digest = MessageDigest.getInstance("SHA-256");
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
-                originalString = readFileAsString(file.toString()) + bytesToHex(encodedHash);
-                encodedHash = digest.digest(
-                        originalString.getBytes(StandardCharsets.UTF_8));
-//                System.out.println(file.toString() + ": " + bytesToHex(encodedHash));
-            }
+        // Hash the file containing passwords
+        try {
+            digest = MessageDigest.getInstance(hashFunction);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
+        try {
+            digest = MessageDigest.getInstance(hashFunction);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        originalString = readFileAsString(fileName) + bytesToHex(encodedHash);
+        encodedHash = digest.digest(
+                originalString.getBytes(StandardCharsets.UTF_8));
+
         return bytesToHex(encodedHash);
     }
 
