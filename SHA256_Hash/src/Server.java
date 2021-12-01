@@ -14,7 +14,8 @@ class Server {
         } catch (IOException e) {
             System.exit(1);
         }
-        Socket s = ss.accept();
+
+        Socket s = ss.accept();     //Accept connection to the socket
 
         Scanner myobj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Enter file name: ");
@@ -23,8 +24,8 @@ class Server {
         IO io = new IO(s);
 
         /* Hash server file folder */
-        String hashSHA1 = HashGen.generateHashOfFile(fileName, "SHA-1");
-        String hashSHA256 = HashGen.generateHashOfFile(fileName, "SHA-256");
+        String hashSHA1 = HashGen.generateHashOfFile(fileName, "SHA-1");  //Generate hash for SHA-1
+        String hashSHA256 = HashGen.generateHashOfFile(fileName, "SHA-256"); //Generate hash for SHA-256
 //        System.out.println(hashSHA256);
 //        System.out.println(hashSHA1);
         /* send hash to client*/

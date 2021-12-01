@@ -19,8 +19,8 @@ class Client {
         IO io = new IO(s);
 
         /* encrypt client folder */
-        String hashSHA256 = HashGen.generateHashOfFile(fileName, "SHA-256");
-        String hashSHA1 = HashGen.generateHashOfFile(fileName, "SHA-1");
+        String hashSHA256 = HashGen.generateHashOfFile(fileName, "SHA-256"); //Generate hash for SHA-256
+        String hashSHA1 = HashGen.generateHashOfFile(fileName, "SHA-1"); //Generate hash for SHA-1
 //        System.out.println(hashSHA1);
 //        System.out.println(hashSHA256);
         /* send hash */
