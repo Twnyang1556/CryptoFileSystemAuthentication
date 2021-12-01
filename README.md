@@ -1,15 +1,15 @@
 # CryptoFileSystemAuthentication
 ## CS355 Final Project
 
-###Language used: 
+### Language used: 
 Java
 
-###Libraries used:
+### Libraries used:
 Only standard Java libraries were used:
 java.net.*, java.util.Scanner, java.nio.charset.StandardCharsets, java.nio.file.Files, java.nio.file.Paths, java.security.MessageDigest, and java.io.\*
 
-##Security analysis of encryption scheme
-###Security goal:
+## Security analysis of encryption scheme
+### Security goal:
 Verify contents of a file is the same between two file systems
 
 ### How they are achieved:
