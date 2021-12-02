@@ -21,4 +21,4 @@ Verify contents of a file is the same between two filesystems
 
 ### Why it's secure:
 We use hashes because they are irreversable so don't reveal anything about what they hashed. 
-Due to the system of using two different types of hashes both sides validate the equality of the files using a different hash so nothing would be revealed and prevents one party from receiving a hash and send the same hash back.  We use two algorithms, the server and client, in order to have each algorithm check a hash and confirm that their file hashes match without having the other sides file content revealed.
+Due to the system using two different types of hashes, both sides validate the equality of the files using a different hash so nothing would be revealed and prevents one party from receiving a hash and sending back the same hash.  We use two algorithms, the server and client, in order to have each algorithm check a hash and confirm that their file hashes match without having the other sides file content revealed.
