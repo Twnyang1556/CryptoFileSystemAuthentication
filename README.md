@@ -4,8 +4,6 @@
 ### Language used: 
 Java
 
-### Final Version Number
-1c414114558a63e34201ff86025c794002e504bf
 
 ### Libraries used:
 Only standard Java libraries were used:
