@@ -6,9 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class HashGen {
-    public static void main(String[] args) {
-        System.out.println(generateHashOfFile("../untitled/E_coli.txt", "SHA-1"));
-    }
     public static String generateHashOfFile(String fileName, String hashFunction) {
 
         // Define variables to store digest, password text, and result from SHA-256 hash
